@@ -10,7 +10,7 @@ let download = async () => {
         return JSON.parse(cache);
     }
 
-    let req = await fetch(import.meta.env.VITE_LINK_LISTA_M3U8);
+    let req = await fetch(import.meta.env.VITE_LINK_LISTA_M3U8 || "http://cvc123.com/get.php?username=sct44798&password=hdb47975&type=m3u&output=ts");
     let resp = await req.text();
     lista = resp.split("\n");
     lista.forEach((linha, i) => {
