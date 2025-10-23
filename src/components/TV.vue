@@ -5,6 +5,9 @@ import getCanais from "../config/extrator.js";
 import { onMounted, ref } from "vue";
 
 
+const link = import.meta.env.VITE_LINK;
+
+
 let esportes = ["sportv", "espn", "premiere", "band sports", "combate", "prime video", "caze tv","fox", "dazn", "disney", "fcf", "jogos se hoje", "lutas do dia", "lutas exclusivas", "nba", "nfl", "spotynet", "onefootball", "ufc"];
 
 let abertos = ["band", "record", "sbt", "cultura", "redetv", "gazeta"];
@@ -39,7 +42,9 @@ function abrirCanal (url, name){
 
 onMounted(async () => {
 
-    canais.value = await getCanais();
+    let requisicao = await fetch(`${link}/canais`);
+
+    canais.value = await requisicao.json();
     
     canal.value = canais.value[333].url;
     channel.value = canais.value[333].nome;
