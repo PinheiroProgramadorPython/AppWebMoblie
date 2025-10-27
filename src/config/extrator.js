@@ -4,7 +4,15 @@ let lista = [];
 
 
 let download = async () => {
-    let req = await fetch(`${import.meta.env.VITE_LINK}`);
+    let req;
+    try {
+        req = await fetch("../canais.json");
+        if (!req.ok) { throw new Error("canais.json não foi Encontrado!") }
+    } catch (error) {
+        req = await fetch(`${import.meta.env.VITE_LINK}`);
+        throw (`Deu Ruim: ${error}! Baixando direto da playlist m3u`);
+    }
+
     let resp = await req.text();
     lista = resp.split("\n");
 

@@ -2,7 +2,7 @@
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import getCanais from "../config/extrator.js";
-// import arquivoCanais from "../canais.json";
+import canaisJson from "../canais.json";
 import { onMounted, ref } from "vue";
 
 
@@ -39,7 +39,8 @@ function abrirCanal (url, name){
 }
 
 onMounted(async () => {
-    canais.value = await getCanais();
+
+    canais.value = canaisJson || await getCanais();
     console.log(canais.value);
  
     canal.value = canais.value[333].url;
@@ -49,8 +50,9 @@ onMounted(async () => {
     width: 200,
     height: 100,
     controls: true,
-    autoplay: false,
+    autoplay: true,
     fluid: true,
+    muted: false,
     sources: [{src: canal.value, type: "application/x-mpegURL"}]
     });
     player.load();
