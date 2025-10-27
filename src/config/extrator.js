@@ -1,3 +1,6 @@
+import json from "../canais.json";
+
+
 let canais = [];
 
 let lista = [];
@@ -6,7 +9,7 @@ let lista = [];
 let download = async () => {
     let req;
     try {
-        req = await fetch("../canais.json");
+        req = await fetch(json);
         if (!req.ok) { throw new Error("canais.json não foi Encontrado!") }
     } catch (error) {
         req = await fetch(`${import.meta.env.VITE_LINK}`);

@@ -52,7 +52,7 @@ onMounted(async () => {
     controls: true,
     autoplay: true,
     fluid: true,
-    muted: false,
+    muted: true,
     sources: [{src: canal.value, type: "application/x-mpegURL"}]
     });
     player.load();
