@@ -2,10 +2,8 @@
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import getCanais from "../config/extrator.js";
+// import arquivoCanais from "../canais.json";
 import { onMounted, ref } from "vue";
-
-
-const link = import.meta.env.VITE_LINK;
 
 
 let esportes = ["sportv", "espn", "premiere", "band sports", "combate", "prime video", "caze tv","fox", "dazn", "disney", "fcf", "jogos se hoje", "lutas do dia", "lutas exclusivas", "nba", "nfl", "spotynet", "onefootball", "ufc"];
@@ -41,11 +39,9 @@ function abrirCanal (url, name){
 }
 
 onMounted(async () => {
-
-    let requisicao = await fetch(`${link}/canais`);
-
-    canais.value = await requisicao.json();
-    
+    canais.value = await getCanais();
+    console.log(canais.value);
+ 
     canal.value = canais.value[333].url;
     channel.value = canais.value[333].nome;
     

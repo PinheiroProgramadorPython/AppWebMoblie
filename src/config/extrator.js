@@ -1,18 +1,14 @@
-let lista = [];
-
 let canais = [];
 
-let download = async () => {
-    const cache = localStorage.getItem("canais");
-    let now = Date.now();
-    let lastUpdate = Number(localStorage.getItem("canais_time"));
-    if (now - lastUpdate < Number(import.meta.env.VITE_CACHE_DURATION)) {
-        return JSON.parse(cache);
-    }
+let lista = [];
 
-    let req = await fetch(import.meta.env.VITE_LINK_LISTA_M3U8 || "http://cvc123.com/get.php?username=sct44798&password=hdb47975&type=m3u&output=ts");
+
+let download = async () => {
+    let req = await fetch(`${import.meta.env.VITE_LINK}`);
     let resp = await req.text();
     lista = resp.split("\n");
+
+
     lista.forEach((linha, i) => {
         if (linha.includes("http://")) {
             lista[i] = linha.replace(".ts", ".m3u8").trim();
@@ -28,9 +24,6 @@ let download = async () => {
             canais.push({ nome: nome, url: url })
         }
     });
-
-    localStorage.setItem("canais", JSON.stringify(canais.slice(0, 1000)));
-    localStorage.setItem("canais_time", now);
 
     return canais;
 };
